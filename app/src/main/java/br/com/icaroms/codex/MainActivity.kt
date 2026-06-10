@@ -45,3 +45,19 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+@Composable
+fun SaudacaoCodex(nomeInvocador: String) {
+    Text(text = "Bem-vindo ao Codex, $nomeInvocador")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SaudacaoCodexPreview() {
+    SaudacaoCodex(nomeInvocador = "")
+}
+@Preview(showBackground = true)
+@Composable
+fun TituloCodex() {
+    Text(text = "◆ CODEX ◆")
+}
