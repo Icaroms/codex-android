@@ -92,3 +92,20 @@ fun GaleriaCodex(){
         FichaDoJogo("Dragon Age: Origins", 9.9, 2009)
     }
 }
+
+@Composable
+fun FichaDoEstudio(nome: String, pais: String, anoFundacao: Int) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text(text = nome)
+        Row {
+            Text(text = "País: $pais")
+            Text(text = " - Desde: $anoFundacao")
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FichaDoEstudioPreview() {
+    FichaDoEstudio(nome = "Gonner Estudio", pais = "Brasil", anoFundacao = 1995)
+}
