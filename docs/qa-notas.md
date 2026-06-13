@@ -23,3 +23,11 @@
 ### E) Verificar se Estudio.mediaNotas devolve 0.0 com lista vazia -> Unitário : Funcional
 ### F) Testar se o Codex abre bem em aparelhos de tela pequena -> Não-Funcional(Compatibilidade)
 
+# --------------------------------------------------------------------------------------------------
+
+### CT-11-02 — Exibição da Lista 
+### Passos:     1. Abrir o Preview da ListaComTitulo
+###             2. Rolar a Lista
+### Esperado:  Os itens aparecem, uma por jogo da lista, na ordem.
+### Nível/Tipo: Componente · Funcional
+### Veredito:  Passou

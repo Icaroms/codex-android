@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -108,4 +110,69 @@ fun FichaDoEstudio(nome: String, pais: String, anoFundacao: Int) {
 @Composable
 fun FichaDoEstudioPreview() {
     FichaDoEstudio(nome = "Gonner Estudio", pais = "Brasil", anoFundacao = 1995)
+}
+
+@Composable
+fun ListaDeJogos() {
+    // lista mock = trinca nome/nota/ano, igual sua FichaDoJogos
+    val jogos = listOf(
+        Triple("Hollow Knight", 9.4, 2017),
+        Triple("Hades", 9.0, 2020),
+        Triple("Celeste", 9.2, 2018),
+        Triple("Stardew Valley", 9.5, 2016),
+        Triple("Kenshi", 10.0, 2018),
+        Triple("Dragon Age: Origins", 9.8, 2010),
+        Triple("Harvest Moon: One World", 8.3, 2021),
+        Triple("Rune Factory 3", 9.1, 2023),
+        Triple("Digimon World 3", 9.9, 2001),
+        Triple("Stardew Valley", 9.5, 2016),
+        Triple("Fable 1", 9.7, 2004),
+        Triple("The Sims 4", 8.4, 2018),
+        Triple("The Elder Scrolls: Skyrim", 9.7, 2011),
+    )
+    LazyColumn(modifier = Modifier.padding(8.dp)) {
+        items(jogos) { jogo ->
+            FichaDoJogo(nome = jogo.first, nota = jogo.second, ano = jogo.third)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun listaDeJogosPreview() {
+    ListaDeJogos()
+}
+
+@Composable
+fun ListaComTitulo() {
+    Column {
+        TituloCodex()
+        // lista mock = trinca nome/nota/ano, igual sua FichaDoJogos
+        val jogos = listOf(
+            Triple("Hollow Knight", 9.4, 2017),
+            Triple("Hades", 9.0, 2020),
+            Triple("Celeste", 9.2, 2018),
+            Triple("Stardew Valley", 9.5, 2016),
+            Triple("Kenshi", 10.0, 2018),
+            Triple("Dragon Age: Origins", 9.8, 2010),
+            Triple("Harvest Moon: One World", 8.3, 2021),
+            Triple("Rune Factory 3", 9.1, 2023),
+            Triple("Digimon World 3", 9.9, 2001),
+            Triple("Stardew Valley", 9.5, 2016),
+            Triple("Fable 1", 9.7, 2004),
+            Triple("The Sims 4", 8.4, 2018),
+            Triple("The Elder Scrolls: Skyrim", 9.7, 2011),
+        )
+        LazyColumn(modifier = Modifier.padding(8.dp)) {
+            items(jogos) { jogo ->
+                FichaDoJogo(nome = jogo.first, nota = jogo.second, ano = jogo.third)
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ListaComTituloPreview() {
+    ListaComTitulo()
 }
