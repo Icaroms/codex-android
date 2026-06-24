@@ -22,6 +22,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import br.com.icaroms.codex.ui.theme.CodexTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,12 +34,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CodexTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Icaroms",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppCodex()
             }
         }
     }
@@ -198,4 +197,45 @@ fun BotaoFavorito(nomeJogo: String) {
 @Composable
 fun BotaoFavoritoPreview() {
     BotaoFavorito("Hades")
+}
+
+@Composable
+fun AppCodex() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "lista") {
+        composable("lista") {
+            TelaLista(navController)
+        }
+        composable("detalhe/{nome}") { entrada ->
+            val nome = entrada.arguments?.getString("nome") ?: "?"
+            TelaDetalhe(nome = nome)
+        }
+    }
+}
+
+@Composable
+fun TelaLista(navController: NavController) {
+    val jogos = listOf(
+        Triple("Hollow Knight", 9.4, 2017),
+        Triple("Hades", 9.0, 2020),
+        Triple("Celeste", 9.2, 2018)
+    )
+    LazyColumn(modifier = Modifier.padding(8.dp)) {
+        items(jogos) {jogo ->
+            Box(modifier = Modifier.clickable {
+                navController.navigate("detalhe/${jogo.first}")
+            }) {
+                FichaDoJogo(nome = jogo.first, nota = jogo.second, ano = jogo.third)
+            }
+        }
+    }
+}
+
+@Composable
+fun TelaDetalhe(nome: String) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        TituloCodex()
+        Text(text = "Detalhe do Jogo:")
+        Text(text = nome)
+    }
 }
