@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CodexTheme {
-                AppCodex()
+                AppBestiario()
             }
         }
     }
@@ -237,5 +237,51 @@ fun TelaDetalhe(nome: String) {
         TituloCodex()
         Text(text = "Detalhe do Jogo:")
         Text(text = nome)
+    }
+}
+
+@Composable
+fun FichaCriatura(criatura: Criatura, aoTocar: () -> Unit) {
+    var favorita by remember {mutableStateOf(false)}
+    Row(modifier = Modifier
+        .padding(12.dp)
+        .clickable {aoTocar()}
+    ) {
+        Column {
+            Text(text = criatura.nome)
+            Text(text = criatura.classe())
+        }
+        Text (
+            text = if(favorita) " ★" else " ☆",
+            modifier = Modifier.clickable {favorita = !favorita}
+        )
+    }
+}
+
+@Composable
+fun AppBestiario() {
+    val nav = rememberNavController()
+    val criaturas = listOf(
+        Criatura("Goblin", 30), Criatura("Grifo", 75),
+        Criatura("Dragão", 95), Criatura("Wyvern", 90)
+    )
+    NavHost(navController = nav, startDestination = "lista") {
+        composable("lista") {
+            LazyColumn(modifier = Modifier.padding(8.dp)) {
+                items(criaturas) { c ->
+                    FichaCriatura(criatura = c, aoTocar = {
+                        nav.navigate("detalhe/${c.nome}")
+                    })
+                }
+            }
+        }
+        composable("detalhe/{nome}") {entrada ->
+            val nome = entrada.arguments?.getString("nome") ?: "?"
+            val c = criaturas.find {it.nome == nome}
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(text = "◆ FICHA ◆")
+                Text(text = c?.resumo() ?: nome)
+            }
+        }
     }
 }
