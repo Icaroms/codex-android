@@ -1,6 +1,7 @@
 package br.com.icaroms.codex
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.icaroms.codex.network.RetrofitInstance
 import br.com.icaroms.codex.ui.theme.CodexTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,6 +37,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CodexTheme {
                 AppBestiario()
+                Log.d("Codex", "Retrofit pronto: " + RetrofitInstance)
             }
         }
     }

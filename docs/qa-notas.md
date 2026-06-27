@@ -35,3 +35,5 @@
 # --------------------------------------------------------------------------------------------------
 
 ## Registra teste de auth da RAWG no caderno de QA
+
+## baseUrl SEMPRE termina com "/".

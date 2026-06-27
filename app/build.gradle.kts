@@ -1,6 +1,22 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+}
+
+val localProperties = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if(f.exists()) load(f.inputStream())
+}
+
+android {
+    defaultConfig {
+        // Lê a chave e entrega o código
+        buildConfigField("String", "RAWG_API_KEY",
+            "\"${localProperties.getProperty("RAWG_API_KEY")}\"")
+    }
+    buildFeatures { buildConfig = true} // Liga o BuildConfig
 }
 
 android {
@@ -56,4 +72,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 }
