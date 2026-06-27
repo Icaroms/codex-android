@@ -37,3 +37,9 @@
 ## Registra teste de auth da RAWG no caderno de QA
 
 ## baseUrl SEMPRE termina com "/".
+
+# --------------------------------------------------------------------------------------------------
+
+## - Com internet: OK 200 + JSON no Logcat -> Passou
+## - Modo Avião: "Falha de rede", sem crash -> Passou
+## - Lição: rede SEMPRE no try/catch. Caminho de falha é teste obrigatório.
