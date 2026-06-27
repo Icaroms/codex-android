@@ -31,3 +31,7 @@
 ### Esperado:  Os itens aparecem, uma por jogo da lista, na ordem.
 ### Nível/Tipo: Componente · Funcional
 ### Veredito:  Passou
+
+# --------------------------------------------------------------------------------------------------
+
+## Registra teste de auth da RAWG no caderno de QA
