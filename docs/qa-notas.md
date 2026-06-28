@@ -43,3 +43,7 @@
 ## - Com internet: OK 200 + JSON no Logcat -> Passou
 ## - Modo Avião: "Falha de rede", sem crash -> Passou
 ## - Lição: rede SEMPRE no try/catch. Caminho de falha é teste obrigatório.
+
+# --------------------------------------------------------------------------------------------------
+
+## Sempre testar o valor exato do limite, e os valores na fronteira 
