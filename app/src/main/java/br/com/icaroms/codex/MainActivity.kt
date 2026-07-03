@@ -28,6 +28,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.icaroms.codex.network.JogoRawg
 import br.com.icaroms.codex.network.RetrofitInstance
 import br.com.icaroms.codex.ui.theme.CodexTheme
 
@@ -51,7 +52,7 @@ fun TituloCodex() {
 }
 
 @Composable
-fun FichaDoJogo(nome: String, nota: Double, ano: Int) {
+fun FichaDoJogo(nome: String, nota: Double, ano: String) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text( text = nome)
         Row {
@@ -64,7 +65,7 @@ fun FichaDoJogo(nome: String, nota: Double, ano: Int) {
 @Preview(showBackground = true)
 @Composable
 fun FichaDoJogoPreview() {
-    FichaDoJogo(nome = "Hollow Knight", nota = 9.4, ano = 2017)
+    FichaDoJogo(nome = "Hollow Knight", nota = 9.4, ano = "2017")
 }
 @Composable
 fun AppCodex() {
@@ -82,17 +83,18 @@ fun AppCodex() {
 
 @Composable
 fun TelaLista(navController: NavController) {
-    val jogos = listOf(
-        Triple("Hollow Knight", 9.4, 2017),
-        Triple("Hades", 9.0, 2020),
-        Triple("Celeste", 9.2, 2018)
-    )
+    var jogos by remember {mutableStateOf(listOf<JogoRawg>())}
+
     LazyColumn(modifier = Modifier.padding(8.dp)) {
         items(jogos) {jogo ->
             Box(modifier = Modifier.clickable {
-                navController.navigate("detalhe/${jogo.first}")
+                navController.navigate("detalhe/" + jogo.name)
             }) {
-                FichaDoJogo(nome = jogo.first, nota = jogo.second, ano = jogo.third)
+                FichaDoJogo(
+                    nome = jogo.name,
+                    nota = jogo.rating,
+                    ano = jogo.released?.take(4) ?: "?"
+                )
             }
         }
     }
@@ -101,17 +103,13 @@ fun TelaLista(navController: NavController) {
         try {
             val resposta = RetrofitInstance.api.getGames(
                 apiKey = BuildConfig.RAWG_API_KEY,
-                pageSize = 5
+                pageSize = 20
             )
             if (resposta.isSuccessful) {
                 val corpo = resposta.body()
                 Log.d("CODEX", "Total no Reino: " + corpo?.count)
                 if (corpo != null) {
-                    val fortes = corpo.results.filter {it.rating >= 4.0}
-                    Log.d("CODEX", "Fortes " + fortes.size)
-                    for (jogo in fortes) {
-                        Log.d("CODEX", jogo.name + " | " + jogo.rating)
-                    }
+                    jogos = corpo.results
                 }
             } else {
                 Log.e("CODEX", "Erro HTTP " + resposta.code())

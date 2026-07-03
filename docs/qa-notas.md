@@ -23,7 +23,7 @@
 ### E) Verificar se Estudio.mediaNotas devolve 0.0 com lista vazia -> Unitário : Funcional
 ### F) Testar se o Codex abre bem em aparelhos de tela pequena -> Não-Funcional(Compatibilidade)
 
-# --------------------------------------------------------------------------------------------------
+### --------------------------------------------------------------------------------------------------
 
 ### CT-11-02 — Exibição da Lista 
 ### Passos:     1. Abrir o Preview da ListaComTitulo
@@ -32,24 +32,30 @@
 ### Nível/Tipo: Componente · Funcional
 ### Veredito:  Passou
 
-# --------------------------------------------------------------------------------------------------
+### --------------------------------------------------------------------------------------------------
 
 ## Registra teste de auth da RAWG no caderno de QA
 
 ## baseUrl SEMPRE termina com "/".
 
-# --------------------------------------------------------------------------------------------------
+### --------------------------------------------------------------------------------------------------
 
 ## - Com internet: OK 200 + JSON no Logcat -> Passou
 ## - Modo Avião: "Falha de rede", sem crash -> Passou
 ## - Lição: rede SEMPRE no try/catch. Caminho de falha é teste obrigatório.
 
-# --------------------------------------------------------------------------------------------------
+### --------------------------------------------------------------------------------------------------
 
 ## Sempre testar o valor exato do limite, e os valores na fronteira
 
-# --------------------------------------------------------------------------------------------------
+### --------------------------------------------------------------------------------------------------
 
 - Com @SerializedName: imagemUrl = URL real -> PASSOU
 - Sem a anotação: imagemUrl = null, SEM crash e SEM erro no log
 - Lição: erro de mapeamento é SILENCIOSO. Nome do campo = chave JSON exata, ou @SerializedName. Campo anulável evitou o crash.
+
+### --------------------------------------------------------------------------------------------------
+## CT-18-01 - Lista com dados reais (recomposição)
+- Com internet: 20 jogos aparecem sem interação -> Passou
+- Modo avião: sem crash, "Falha de rede" no log -> Passou
+- Débito registrado: tela vazia sem aviso ao usuário(UX). Correção planejada: M33(loading/vazio/erro).
