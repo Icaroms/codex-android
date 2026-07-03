@@ -104,8 +104,15 @@ fun TelaLista(navController: NavController) {
                 pageSize = 5
             )
             if (resposta.isSuccessful) {
-                val corpo = resposta.body()?.string()
-                Log.d("CODEX", "OK " + resposta.code() + " - " + corpo?.take(120))
+                val corpo = resposta.body()
+                Log.d("CODEX", "Total no Reino: " + corpo?.count)
+                if (corpo != null) {
+                    val fortes = corpo.results.filter {it.rating >= 4.0}
+                    Log.d("CODEX", "Fortes " + fortes.size)
+                    for (jogo in fortes) {
+                        Log.d("CODEX", jogo.name + " | " + jogo.rating)
+                    }
+                }
             } else {
                 Log.e("CODEX", "Erro HTTP " + resposta.code())
             }
@@ -121,7 +128,7 @@ fun TelaLista(navController: NavController) {
                 term = "witcher",
                 pageSize = 3
             )
-            Log.d("CODEX", "Busca " + r.code() + " - " + r.body()?.string()?.take(120))
+            Log.d("CODEX", "Busca " + r.code() + " - " + r.body())
         } catch (e: Exception) {
             Log.e("CODEX", "Falha: " + e.message)
         }

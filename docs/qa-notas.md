@@ -46,4 +46,10 @@
 
 # --------------------------------------------------------------------------------------------------
 
-## Sempre testar o valor exato do limite, e os valores na fronteira 
+## Sempre testar o valor exato do limite, e os valores na fronteira
+
+# --------------------------------------------------------------------------------------------------
+
+- Com @SerializedName: imagemUrl = URL real -> PASSOU
+- Sem a anotação: imagemUrl = null, SEM crash e SEM erro no log
+- Lição: erro de mapeamento é SILENCIOSO. Nome do campo = chave JSON exata, ou @SerializedName. Campo anulável evitou o crash.

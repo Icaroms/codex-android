@@ -10,12 +10,12 @@ interface RawgApi {
     suspend fun getGames(
         @Query("key") apiKey: String,
         @Query("page_size") pageSize: Int
-    ): Response<ResponseBody>
+    ): Response<RespostaJogos>
 
     @GET("games")
     suspend fun searchGames(
         @Query("key") apiKey: String,
         @Query("search") term: String,
         @Query("page_size") pageSize: Int
-    ): Response<ResponseBody>
+    ): Response<RespostaJogos>
 }
