@@ -9,11 +9,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +30,7 @@ import androidx.navigation.compose.rememberNavController
 import br.com.icaroms.codex.network.JogoRawg
 import br.com.icaroms.codex.network.RetrofitInstance
 import br.com.icaroms.codex.ui.theme.CodexTheme
+import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,12 +52,23 @@ fun TituloCodex() {
 }
 
 @Composable
-fun FichaDoJogo(nome: String, nota: Double, ano: String) {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text( text = nome)
-        Row {
-            Text(text = "Nota: $nota")
-            Text(text = " - Ano: $ano")
+fun FichaDoJogo(nome: String, nota: Double, ano: String, imagemUrl: String?) {
+    Row(modifier = Modifier.padding(12.dp)) {
+        AsyncImage(
+            model = imagemUrl,
+            contentDescription = nome,
+            modifier = Modifier.size(80.dp)
+        )
+        Column(modifier = Modifier.padding(start = 12.dp)) {
+            Text(text = nome)
+            Row {
+                Text(text = "Nota: $nota")
+                Text(text = " - Ano: $ano")
+
+            }
+            if (nota >= 4.5) {
+                Text(text = "★  Obra-Prima")
+            }
         }
     }
 }
@@ -65,7 +76,7 @@ fun FichaDoJogo(nome: String, nota: Double, ano: String) {
 @Preview(showBackground = true)
 @Composable
 fun FichaDoJogoPreview() {
-    FichaDoJogo(nome = "Hollow Knight", nota = 9.4, ano = "2017")
+    FichaDoJogo(nome = "Hollow Knight", nota = 9.4, ano = "2017", imagemUrl = null)
 }
 @Composable
 fun AppCodex() {
@@ -93,7 +104,8 @@ fun TelaLista(navController: NavController) {
                 FichaDoJogo(
                     nome = jogo.name,
                     nota = jogo.rating,
-                    ano = jogo.released?.take(4) ?: "?"
+                    ano = jogo.released?.take(4) ?: "?",
+                    imagemUrl = jogo.imagemUrl
                 )
             }
         }

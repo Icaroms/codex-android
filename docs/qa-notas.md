@@ -55,7 +55,15 @@
 - Lição: erro de mapeamento é SILENCIOSO. Nome do campo = chave JSON exata, ou @SerializedName. Campo anulável evitou o crash.
 
 ### --------------------------------------------------------------------------------------------------
+
 ## CT-18-01 - Lista com dados reais (recomposição)
 - Com internet: 20 jogos aparecem sem interação -> Passou
 - Modo avião: sem crash, "Falha de rede" no log -> Passou
 - Débito registrado: tela vazia sem aviso ao usuário(UX). Correção planejada: M33(loading/vazio/erro).
+
+### --------------------------------------------------------------------------------------------------
+
+## CT-19-01 - Carregamento de capas(coil)
+- URL válida: 20 capas na lista -> Passou
+- URL quebrada: sem crash, espaço vazio no lugar -> Passou
+- Débito: falha visual sem aviso(sem placeholder/erro) - Conserto agendado: M33, junto do débito do M18
