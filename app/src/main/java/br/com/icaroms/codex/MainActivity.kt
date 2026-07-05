@@ -87,7 +87,7 @@ fun AppCodex() {
         }
         composable("detalhe/{nome}") { entrada ->
             val nome = entrada.arguments?.getString("nome") ?: "?"
-            TelaDetalhe(nome = nome)
+            TelaDetalhe(nome = nome, navController = navController)
         }
     }
 }
@@ -146,10 +146,39 @@ fun TelaLista(navController: NavController) {
 }
 
 @Composable
-fun TelaDetalhe(nome: String) {
+fun TelaDetalhe(nome: String, navController: NavController) {
+    var jogo by remember { mutableStateOf<JogoRawg?>(null) }
+    LaunchedEffect(Unit) {
+        try {
+            val r = RetrofitInstance.api.searchGames(
+                apiKey = BuildConfig.RAWG_API_KEY,
+                term = nome, pageSize = 1
+            )
+            if (r.isSuccessful) {
+                val corpo = r.body()
+                if (corpo != null && corpo.results.size > 0) {
+                    jogo = corpo.results[0]
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("CODEX", "Falha de rede: " + e.message)
+        }
+    }
     Column(modifier = Modifier.padding(16.dp)) {
         TituloCodex()
-        Text(text = "Detalhe do Jogo:")
-        Text(text = nome)
+        Text(text = "← Voltar",
+            modifier = Modifier.clickable { navController.popBackStack() })
+        if (jogo == null) {
+            Text(text = "Carregando...")
+        } else {
+            AsyncImage(
+                model = jogo?.imagemUrl,
+                contentDescription = jogo?.name,
+                modifier = Modifier.size(220.dp)
+            )
+            Text(text = jogo?.name ?: nome)
+            Text(text = "Nota: " + jogo?.rating)
+            Text(text = "Lançamento: " + (jogo?.released ?: "?"))
+        }
     }
 }

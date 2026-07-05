@@ -67,3 +67,10 @@
 - URL válida: 20 capas na lista -> Passou
 - URL quebrada: sem crash, espaço vazio no lugar -> Passou
 - Débito: falha visual sem aviso(sem placeholder/erro) - Conserto agendado: M33, junto do débito do M18
+
+### --------------------------------------------------------------------------------------------------
+
+## CT-20-01 - Tela de detalhe com dados reais
+- 3 jogos diferentes: cada detalhe mostra 0 jogo tocado -> Passou
+- Modo avião: sem crash, mas "carregando..." eterno -> Passou
+-  Família de débitos UX(M18/M19/M20) -> Conserto na M33
