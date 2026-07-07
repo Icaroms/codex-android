@@ -74,3 +74,15 @@
 - 3 jogos diferentes: cada detalhe mostra 0 jogo tocado -> Passou
 - Modo avião: sem crash, mas "carregando..." eterno -> Passou
 -  Família de débitos UX(M18/M19/M20) -> Conserto na M33
+
+### --------------------------------------------------------------------------------------------------
+
+- ID -> CT-20-01
+- Título -> A tela de detalhe exibe os dados do jogo selecionado
+- Rastreabilidade -> M20 - A Câmara de Detalhes
+- Pré-condição -> App instalado, Internet ligada, lista já carregada com jogos
+- Dados de teste -> 3 jogos distintos da lista
+- Passos -> 1. Na lista, toque no primeiro jogo; 2. Observe a lista de detalhe; 3. Volte com o botão de voltar; 3. Repita com o 2 e o 3 jogo.
+- Resultado esperado -> Cada detalhe mostra capa, nome, nota do jogo tocado(3/3 corretos)
+- resultado real -> 3/3 Corretos
+- Status -> Passou
