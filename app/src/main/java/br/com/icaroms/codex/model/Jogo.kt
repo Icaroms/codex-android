@@ -10,6 +10,7 @@ open class EntidadeCodex(val id: Int, val nome: String) {
     open fun cartao(): String = "#$id - $nome"
 }
 
+/** tem o papel de avaliar os jogos, trazendo a qualidade do jogo conforme a nota.*/
 class Jogo(
     id: Int,
     nome: String,
