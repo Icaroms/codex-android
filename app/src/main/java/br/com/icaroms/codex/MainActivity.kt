@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,6 +32,7 @@ import androidx.navigation.compose.rememberNavController
 import br.com.icaroms.codex.network.JogoRawg
 import br.com.icaroms.codex.network.RetrofitInstance
 import br.com.icaroms.codex.ui.theme.CodexTheme
+import br.com.icaroms.codex.viewmodel.GameViewModel
 import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
@@ -93,8 +96,8 @@ fun AppCodex() {
 }
 
 @Composable
-fun TelaLista(navController: NavController) {
-    var jogos by remember {mutableStateOf(listOf<JogoRawg>())}
+fun TelaLista(navController: NavController, viewModel: GameViewModel = viewModel()) {
+    val jogos by viewModel.jogos.collectAsState()
 
     LazyColumn(modifier = Modifier.padding(8.dp)) {
         items(jogos) {jogo ->
@@ -110,42 +113,10 @@ fun TelaLista(navController: NavController) {
             }
         }
     }
-
-    LaunchedEffect(Unit) {
-        try {
-            val resposta = RetrofitInstance.api.getGames(
-                apiKey = BuildConfig.RAWG_API_KEY,
-                pageSize = 20
-            )
-            if (resposta.isSuccessful) {
-                val corpo = resposta.body()
-                Log.d("CODEX", "Total no Reino: " + corpo?.count)
-                if (corpo != null) {
-                    jogos = corpo.results
-                }
-            } else {
-                Log.e("CODEX", "Erro HTTP " + resposta.code())
-            }
-        } catch (e: Exception) {
-            Log.e("CODEX", "Falha de rede: " + e.message)
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        try {
-            val r = RetrofitInstance.api.searchGames(
-                apiKey = BuildConfig.RAWG_API_KEY,
-                term = "witcher",
-                pageSize = 3
-            )
-            Log.d("CODEX", "Busca " + r.code() + " - " + r.body())
-        } catch (e: Exception) {
-            Log.e("CODEX", "Falha: " + e.message)
-        }
-    }
 }
 
 @Composable
+// Sinceramente, não sei como explicar
 fun TelaDetalhe(nome: String, navController: NavController) {
     var jogo by remember { mutableStateOf<JogoRawg?>(null) }
     LaunchedEffect(Unit) {
