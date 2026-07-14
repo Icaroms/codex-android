@@ -86,3 +86,10 @@
 - Resultado esperado -> Cada detalhe mostra capa, nome, nota do jogo tocado(3/3 corretos)
 - resultado real -> 3/3 Corretos
 - Status -> Passou
+
+### --------------------------------------------------------------------------------------------------
+
+## CT-23-01 - Isolamento do GameViewModel(Repository)
+- Regressão: Lista carrega normalmente, mesmos jogos de sempre -> Passou
+- Estrutural: "Retrofit" não aparece mais em GameViewModel.kt, só em GameRespository..kt -> Passou
+- ViewModel agora depende só do Repository(não mais do Retrofit direto)
