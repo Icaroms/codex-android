@@ -93,3 +93,10 @@
 - Regressão: Lista carrega normalmente, mesmos jogos de sempre -> Passou
 - Estrutural: "Retrofit" não aparece mais em GameViewModel.kt, só em GameRespository..kt -> Passou
 - ViewModel agora depende só do Repository(não mais do Retrofit direto)
+
+### --------------------------------------------------------------------------------------------------
+
+## CT-24-01 - Inversão de depedência no GameViewModel (SOLID)
+- Regressão: Lista carrega normalmente, nada mudou na tela -> Passou
+- Estrutural: repository agora é parâmetro de construtor com default, TelaLista não precisou mudar nada -> Passou
+- GameViewModel não fabrica mais sua própria depedência(D do SOLID)

@@ -9,9 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 /** O Oráculo do Codex - Guarda o estado e lógica a partir da M22. */
-class GameViewModel : ViewModel() {
+class GameViewModel(
 
-    private val repository = GameRepository()
+    private val repository: GameRepository = GameRepository()
+) : ViewModel() {
 
     private val _jogos = MutableStateFlow<List<JogoRawg>>(emptyList())
     val jogos: StateFlow<List<JogoRawg>> = _jogos
